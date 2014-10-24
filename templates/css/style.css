@@ -1,0 +1,44 @@
+/* CSS */
+body, html {
+    background-color: #222;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#container {
+    height: auto !important;
+    min-height: 100%;
+    margin: 0px auto -70px auto;
+}
+
+#content {
+    background-color: #222;
+    height: auto !important;
+    margin: 0 auto;
+    width: 75%;
+}
+
+#segment {
+    background-color: #ccc;
+    box-radius: 5px;
+}
+
+#footer, .push {
+    height: 70px;
+}
+
+#footer {
+    background-color: #444;
+    border-top: 4px solid #ccc;
+    margin: 0;
+    width: 100%;
+    overflow: hidden;
+    position: absolute;
+}
+
+#footer p {
+    color: #ccc;
+    text-align: center;
+}
+
