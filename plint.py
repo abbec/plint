@@ -2,6 +2,19 @@ import xml.etree.ElementTree as ET
 from jinja2 import FileSystemLoader,Environment
 import argparse, webbrowser, os
 
+class Message():
+    prio = { "error": 1000, "warning": 100 }
+    def __init__(self, type, code, desc, f, line):
+        self.type = type
+        self.code = code
+        self.desc = desc
+        self.file = f
+        self.line = line
+
+def sort_by_prio(msg):
+    t = msg.type.lower()
+    return -Message.prio[t] if t in Message.prio else 0
+
 def transform(infile, outfile, template_file):
 
     env = Environment(loader = FileSystemLoader(["templates/"]), trim_blocks = True)
@@ -13,11 +26,23 @@ def transform(infile, outfile, template_file):
         return
 
     parsed = ET.fromstring(xmlfile.read())
+    messages = []
+    for message in parsed.iter('message'):
+        t = message.find('type').text
+        code = message.find('code').text
+        desc = message.find('desc').text
+        f = message.find('file').text
+        line = message.find('line').text
+
+        m = Message(t, code, desc, f, line)
+        messages.append(m)
+
+    messages.sort(key = sort_by_prio)
 
     # render jinja template
     template = env.get_template(template_file)
     out = open(outfile, 'w', encoding='utf-8')
-    out.write(template.render(xml_tree = parsed))
+    out.write(template.render(messages = messages))
     out.close()
 
 if __name__ == "__main__":

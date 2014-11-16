@@ -1,17 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 	<meta charset="utf-8">
-    <style>
-        {% include 'css/style.css' %}
-    </style>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+	<style>
+		#container {
+			width: 1160px;
+			margin: auto;
+		}
+
+		footer#main-footer {
+			text-align: center;
+		}
+	</style>
+
 	<title>Lint Results</title>
 </head>
 
 <body>
 
 	<div id="container">
+		<div class="page-header">
+			<h1>Lint Results</h1>
+		</div>
 
 		<div id="content">
 			{% block content %}{% endblock %}
@@ -20,10 +37,10 @@
 
 	</div>
 
-	<div id="footer">
+	<footer id="main-footer">
 		<div id="copyright">
 			<p>All Rights Reserved © Sune</p>
 		</div>
-	</div>
+	</footer>
 </body>
 </html>
