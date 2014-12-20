@@ -1,6 +1,8 @@
 import xml.etree.ElementTree as ET
 from jinja2 import FileSystemLoader,Environment
 import argparse, webbrowser, os
+from itertools import groupby
+from collections import OrderedDict
 
 class Message():
     prio = { "error": 1000, "warning": 100 }
@@ -37,12 +39,15 @@ def transform(infile, outfile, template_file):
         m = Message(t, code, desc, f, line)
         messages.append(m)
 
+    grouped_messages = OrderedDict()
     messages.sort(key = sort_by_prio)
+    for k, g in groupby(messages, lambda m: m.type.lower()):
+            grouped_messages[k] = list(g)
 
     # render jinja template
     template = env.get_template(template_file)
     out = open(outfile, 'w', encoding='utf-8')
-    out.write(template.render(messages = messages))
+    out.write(template.render(grouped_messages = grouped_messages))
     out.close()
 
 if __name__ == "__main__":
